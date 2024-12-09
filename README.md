@@ -14,7 +14,7 @@ Visual Studio 2022'nin SQL Object Explorer'ı üzerinden bağlantı kurarak CRUD
 Repo Test
 
 
-| Yeni bir entity'nin veritabanına ekleme kontorlü | Kayıt sayısı kontrolü | Veritabanındaki entity'nin güncellenme kontrolü | Second Header |
+| Yeni bir entity'nin veritabanına ekleme kontorlü | Kayıt sayısı kontrolü | Veritabanındaki entity'nin güncellenme kontrolü | delete kontrol |
 | ------------- | ------------- |  ------------- | ------------- |
 | ![image](https://github.com/user-attachments/assets/86d7d0f8-dab0-4392-97e8-161afa698e7f) | ![image](https://github.com/user-attachments/assets/35d1e4dd-0ee9-4f20-bba5-eb769b6bb635) | ![image](https://github.com/user-attachments/assets/813b9d2f-708e-403a-bab1-3c52555d6611) | ![image](https://github.com/user-attachments/assets/3b92ffd1-256a-4f1a-b359-cba51d2f7e17) |
 | ![image](https://github.com/user-attachments/assets/de8acfd4-594a-4907-aefd-558c9dd204f2) | ![image](https://github.com/user-attachments/assets/37911543-5abf-4365-b739-2c0cf20f1871) | ![image](https://github.com/user-attachments/assets/b03361d2-3f94-4093-a49a-1422c621a612) | ![image](https://github.com/user-attachments/assets/f22ad310-cd65-414b-8a3b-36c20d1b3119) |
