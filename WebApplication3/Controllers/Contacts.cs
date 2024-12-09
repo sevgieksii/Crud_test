@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer;
 using Microsoft.AspNetCore.Http.HttpResults;
+using AutoMapper;
 
 namespace WebApplication3.Controllers
 {
@@ -12,45 +13,41 @@ namespace WebApplication3.Controllers
     [ApiController]
     public class Contacts : ControllerBase
     {
-        // Dependency Injection
+        
+        private readonly IMapper _mapper;
 
 
-        private readonly ContactsAPIDbContext _dbContext;  // ContactsAPIDbContext'in implementasyonu yerleşik olarak yapıldı
+        private readonly ContactsAPIDbContext _dbContext;  
 
-        // Bir readonly'nin değerini iki yerde verebilirsiniz ilki constructor, diğeri tanımlandığı yerdir.
-        // Ayrıca readonly ifadeler bir kez set edilebilir
-        public Contacts(ContactsAPIDbContext dbContext) // Constructor
+        
+        public Contacts(IMapper mapper, ContactsAPIDbContext dbContext) 
         {
             _dbContext = dbContext;
+            _mapper = mapper;
         }
         [HttpGet]
-        public async Task<IActionResult> GetContacts() //Listeleme yapar
+        public async Task<IActionResult> GetContacts() 
         {
+
             return Ok(await _dbContext.Contacts.ToListAsync());
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetContact([FromRoute] int id) //id'si verilen kişiyi listeleme
+        public async Task<IActionResult> GetContact([FromRoute] int id) 
         {
             var contact = await _dbContext.Contacts.FindAsync(id);
             if (contact == null)
             {
                 return NotFound();
             }
-
+            var contactDto = _mapper.Map<Contact>(contact);
             return Ok(contact);
         }
         [HttpPost]
-        public async Task<IActionResult> AddContact([FromBody] AddContactContextRequest addContextRequest)  //ekleme
+        public async Task<IActionResult> AddContact([FromBody] AddContactContextRequest addContextRequest) 
         {
-            var contact = new Contact()
-            {
+            var contact = _mapper.Map<Contact>(addContextRequest);
 
-                Address = addContextRequest.Address,
-                Email = addContextRequest.Email,
-                FullName = addContextRequest.FullName,
-                Phone = addContextRequest.Phone
-            };
             await _dbContext.Contacts.AddAsync(contact);
             await _dbContext.SaveChangesAsync();
 
@@ -59,18 +56,13 @@ namespace WebApplication3.Controllers
 
         [HttpPut("{id}")]
 
-        public async Task<IActionResult> UpdateContact(int id, UpdateContactContextRequest updateContextRequest) //id'ye göre güncelleme
+        public async Task<IActionResult> UpdateContact(int id, UpdateContactContextRequest updateContextRequest) 
         {
             var contact = await _dbContext.Contacts.FindAsync(id);
 
             if (contact != null)
             {
-
-                contact.Address = updateContextRequest.Address;
-                contact.Email = updateContextRequest.Email;
-                contact.FullName = updateContextRequest.FullName;
-                contact.Phone = updateContextRequest.Phone;
-
+                _mapper.Map(updateContextRequest, contact);
 
                 await _dbContext.SaveChangesAsync();
                 return Ok(contact);
@@ -79,7 +71,7 @@ namespace WebApplication3.Controllers
             return NotFound();
         }
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteContact(int id) //id'ye göre silme
+        public async Task<IActionResult> DeleteContact(int id)
         {
             var contact = await _dbContext.Contacts.FindAsync(id);
 

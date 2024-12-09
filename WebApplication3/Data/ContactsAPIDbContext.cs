@@ -8,9 +8,9 @@ namespace WebApplication3.Data
         public ContactsAPIDbContext(DbContextOptions<ContactsAPIDbContext> options)
             : base(options)
         {
-            //options ile bağlantı dizesi alınmış olacak
+           
         }
-        public DbSet<Contact> Contacts { get; set; } //Tablo
+        public virtual DbSet<Contact> Contacts { get; set; } 
 
         
     }

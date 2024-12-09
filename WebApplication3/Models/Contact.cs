@@ -8,7 +8,7 @@ namespace WebApplication3.Models
     {
         [Key]
         public int Id { get; set; }
-        public string FullName { get; set; } //Property
+        public string FullName { get; set; } 
         public string Email { get; set; }
         public long Phone { get; set; }
         public string Address { get; set; }

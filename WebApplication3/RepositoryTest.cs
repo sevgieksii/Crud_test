@@ -21,7 +21,7 @@ namespace WebApplication3
             _repository = new Repository<Contact>(_context);
         }
 
-
+        // yeni entity ekle
         [Fact]
         public async Task AddAsync_ShouldAddEntityToDatabase()
         {
@@ -43,6 +43,7 @@ namespace WebApplication3
             Assert.Equal("John Doe", result.First().FullName);
         }
 
+        //vetabanı kayıtları doğru mu
         [Fact]
         public async Task GetAllAsync_ShouldReturnAllEntities()
         {
